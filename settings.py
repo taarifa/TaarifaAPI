@@ -3,6 +3,8 @@
 from os import environ
 from urlparse import urlparse
 
+from schemas import service_schema
+
 API_NAME = 'Taarifa'
 URL_PREFIX = 'api'
 if 'EVE_DEBUG' in environ:
@@ -20,7 +22,7 @@ else:
 
 services = {
     "item_title": "services",
-    "schema": {},
+    "schema": service_schema,
     "resource_methods": ['GET', 'POST', 'DELETE'],
 }
 
