@@ -2,10 +2,18 @@ import json
 from os import environ
 
 from eve import Eve
+from eve.io.mongo import Validator
 
 from settings import API_NAME, URL_PREFIX
 
-api = Eve(API_NAME)
+
+class KeySchemaValidator(Validator):
+    def _validate_keyschema(self, schema, field, dct):
+        "Validate all keys of dictionary `dct` against schema `schema`."
+        for key, value in dct.items():
+            self._validate_schema(schema, key, value)
+
+api = Eve(API_NAME, validator=KeySchemaValidator)
 
 
 def add_document(resource, document):
