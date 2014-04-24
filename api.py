@@ -39,7 +39,16 @@ def register_resource(resource, schema):
                            'schema': schema,
                            'resource_methods': ['GET', 'POST', 'DELETE']})
 
+
+def add_services():
+    "Add existing services as API resources."
+    with api.app_context():
+        services = api.data.driver.db['services'].find()
+    for service in services:
+        register_resource(service['name'], service['fields'])
+
 if __name__ == '__main__':
+    add_services()
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
         port = int(environ.get('PORT'))
