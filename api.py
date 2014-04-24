@@ -27,6 +27,18 @@ def delete_resource(resource):
     "Delete all documents of the given resource."
     return api.test_client().delete('/' + URL_PREFIX + '/' + resource)
 
+
+def register_resource(resource, schema):
+    """Register a new resource with the given schema.
+
+    .. note:: This method calls Flask's add_url_rule under the hood, which
+        raises an AssertionError in debugging mode when used after the first
+        request was served."""
+    api.register_resource(resource,
+                          {'item_title': resource,
+                           'schema': schema,
+                           'resource_methods': ['GET', 'POST', 'DELETE']})
+
 if __name__ == '__main__':
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
