@@ -22,6 +22,11 @@ def add_document(resource, document):
                                   data=json.dumps(document),
                                   content_type='application/json')
 
+
+def delete_resource(resource):
+    "Delete all documents of the given resource."
+    return api.test_client().delete('/' + URL_PREFIX + '/' + resource)
+
 if __name__ == '__main__':
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
