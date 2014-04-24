@@ -40,12 +40,21 @@ def register_resource(resource, schema):
                            'resource_methods': ['GET', 'POST', 'DELETE']})
 
 
+def register_services(services):
+    "Add existing services as API resources."
+    for service in services:
+        register_resource(service['name'], service['fields'])
+
+
 def add_services():
     "Add existing services as API resources."
     with api.app_context():
         services = api.data.driver.db['services'].find()
-    for service in services:
-        register_resource(service['name'], service['fields'])
+    register_services(services)
+
+# Register hook to add resource for service when inserted into the database
+# FIXME: this hook fails in debug mode due an AssertionError raised by Flask
+api.on_insert_services += register_services
 
 if __name__ == '__main__':
     add_services()
