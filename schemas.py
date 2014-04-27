@@ -79,7 +79,40 @@ field_schema = {
     },
 }
 
+# Service conforming to the Open311 GeoReport v2 service definition:
+# http://wiki.open311.org/GeoReport_v2#Response
+# name, fields and unique are extra fields
 service_schema = {
+    'service_code': {
+        'type': 'string',
+        'required': True,
+        'unique': True,
+    },
+    'service_name': {
+        'type': 'string',
+        'required': True,
+    },
+    'description': {
+        'type': 'string',
+    },
+    'metadata': {
+        'type': 'boolean',
+        'default': False,
+    },
+    'type': {
+        'type': 'string',
+        'allowed': ['realtime', 'batch', 'blackbox'],
+        'default': 'realtime',
+    },
+    'keywords': {
+        'type': 'list',
+        'schema': {
+            'type': 'string',
+        },
+    },
+    'group': {
+        'type': 'string',
+    },
     'name': {
         'type': 'string',
         'required': True,
@@ -92,29 +125,5 @@ service_schema = {
     'unique': {
         'type': 'boolean',
         'default': False,
-    },
-    'description': {
-        'type': 'string',
-    },
-    'group': {
-        'type': 'string',
-    },
-    'keywords': {
-        'type': 'list',
-        'schema': {
-            'type': 'string',
-        },
-    },
-    'protocol_type': {
-        'type': 'string',
-    },
-    'service_name': {
-        'type': 'string',
-        'required': True,
-    },
-    'service_code': {
-        'type': 'string',
-        'required': True,
-        'unique': True,
     },
 }
