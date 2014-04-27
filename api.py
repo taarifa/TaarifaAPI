@@ -28,8 +28,10 @@ def delete_resource(resource):
     return api.test_client().delete('/' + URL_PREFIX + '/' + resource)
 
 
-def register_resource(resource, schema):
-    """Register a new resource with the given schema.
+def register_service(resource, schema, service_code):
+    """Register a new service with the given schema and service code. This
+    creates a new endpoint for requests, whereas documents are stored in
+    the requests collection and a filter is created for the service code.
 
     .. note:: This method calls Flask's add_url_rule under the hood, which
         raises an AssertionError in debugging mode when used after the first
@@ -37,13 +39,17 @@ def register_resource(resource, schema):
     api.register_resource(resource,
                           {'item_title': resource,
                            'schema': schema,
-                           'resource_methods': ['GET', 'POST', 'DELETE']})
+                           'resource_methods': ['GET', 'POST', 'DELETE'],
+                           'datasource': {
+                               'source': 'requests',
+                               'filter': {'service_code': service_code}}})
 
 
 def register_services(services):
     "Add existing services as API resources."
     for service in services:
-        register_resource(service['name'], service['fields'])
+        register_service(service['name'], service['fields'],
+                         service['service_code'])
 
 
 def add_services():
