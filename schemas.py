@@ -127,8 +127,8 @@ attribute_schema = {
 
 # Service conforming to the Open311 GeoReport v2 service definition:
 # http://wiki.open311.org/GeoReport_v2#Response
-# name is an extra fields to denote the dynamically created endpoint for the
-# service
+# endpoint is an extra fields to denote the dynamically created endpoint for
+# the service
 service_schema = {
     'jurisdiction_id': {
         'type': 'string',
@@ -167,7 +167,7 @@ service_schema = {
         'type': 'list',
         'schema': attribute_schema,
     },
-    'name': {
+    'endpoint': {
         'type': 'string',
     },
 }

@@ -48,8 +48,9 @@ def register_service(resource, schema, service_code):
 def register_services(services):
     "Add existing services as API resources."
     for service in services:
-        register_service(service['name'], service['fields'],
-                         service['service_code'])
+        if 'endpoint' in service:
+            register_service(service['endpoint'], service['fields'],
+                             service['service_code'])
 
 
 def add_services():
