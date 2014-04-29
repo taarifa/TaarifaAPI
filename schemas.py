@@ -127,7 +127,8 @@ attribute_schema = {
 
 # Service conforming to the Open311 GeoReport v2 service definition:
 # http://wiki.open311.org/GeoReport_v2#Response
-# name, fields and unique are extra fields
+# name is an extra fields to denote the dynamically created endpoint for the
+# service
 service_schema = {
     'service_code': {
         'type': 'string',
@@ -159,17 +160,11 @@ service_schema = {
     'group': {
         'type': 'string',
     },
+    'attributes': {
+        'type': 'list',
+        'schema': attribute_schema,
+    },
     'name': {
         'type': 'string',
-        'required': True,
-    },
-    'fields': {
-        'type': 'dict',
-        'required': True,
-        'keyschema': field_schema,
-    },
-    'unique': {
-        'type': 'boolean',
-        'default': False,
     },
 }
