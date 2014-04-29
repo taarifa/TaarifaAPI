@@ -130,6 +130,9 @@ attribute_schema = {
 # name is an extra fields to denote the dynamically created endpoint for the
 # service
 service_schema = {
+    'jurisdiction_id': {
+        'type': 'string',
+    },
     'service_code': {
         'type': 'string',
         'required': True,
