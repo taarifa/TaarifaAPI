@@ -36,6 +36,8 @@ services = {
 
 requests = {
     "schema": request_schema,
+    "source": "requests",
+    "key": "service_code",
 }
 
 facilities = {
@@ -46,6 +48,8 @@ facilities = {
 resources = {
     "schema": resource_schema,
     "versioning": True,
+    "source": "resources",
+    "key": "facility_code",
 }
 
 DOMAIN = {

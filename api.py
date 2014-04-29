@@ -4,7 +4,7 @@ from os import environ
 from eve import Eve
 from eve.io.mongo import Validator
 
-from settings import API_NAME, URL_PREFIX
+from settings import API_NAME, URL_PREFIX, requests, resources
 
 
 class KeySchemaValidator(Validator):
@@ -28,40 +28,50 @@ def delete_resource(resource):
     return api.test_client().delete('/' + URL_PREFIX + '/' + resource)
 
 
-def register_service(resource, schema, service_code):
-    """Register a new service with the given schema and service code. This
-    creates a new endpoint for requests, whereas documents are stored in
-    the requests collection and a filter is created for the service code.
+def register_resource(resource, schema, source, filt):
+    """Register a new resource with the given schema and filter. This creates
+    a new endpoint for the resource, whereas documents are stored in the source
+    collection and a filter is applied.
 
     .. note:: This method calls Flask's add_url_rule under the hood, which
         raises an AssertionError in debugging mode when used after the first
         request was served."""
-    api.register_resource(resource,
-                          {'item_title': resource,
-                           'schema': schema,
-                           'datasource': {
-                               'source': 'requests',
-                               'filter': {'service_code': service_code}}})
+    api.register_resource(resource, {'item_title': resource,
+                                     'schema': schema,
+                                     'datasource': {'source': source,
+                                                    'filter': filt}})
 
 
-def register_services(services):
-    "Add existing services as API resources."
-    for service in services:
-        if 'endpoint' in service:
-            register_service(service['endpoint'], service['fields'],
-                             service['service_code'])
+def register_resources(resources, conf):
+    "Add existing resources as API resources."
+    for res in resources:
+        if 'endpoint' in res:
+            schema = conf['schema']
+            schema.update(res['fields'])
+            register_resource(res['endpoint'], schema, conf['source'],
+                              {conf['key']: res[conf['key']]})
+
+register_services = lambda d: register_resources(d, requests)
+register_facilities = lambda d: register_resources(d, resources)
 
 
 def add_services():
     "Add existing services as API resources."
     with api.app_context():
-        services = api.data.driver.db['services'].find()
-    register_services(services)
+        register_services(api.data.driver.db['services'].find())
+
+
+def add_facilities():
+    "Add existing facilities as API resources."
+    with api.app_context():
+        register_facilities(api.data.driver.db['facilities'].find())
 
 # Register hook to add resource for service when inserted into the database
 # FIXME: this hook fails in debug mode due an AssertionError raised by Flask
 api.on_insert_services += register_services
+api.on_insert_facilities += register_facilities
 add_services()
+add_facilities()
 
 
 def main():
