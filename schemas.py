@@ -244,3 +244,37 @@ request_schema = {
         'type': 'datetime',
     },
 }
+
+facility_schema = {
+    'jurisdiction_id': {
+        'type': 'string',
+    },
+    'facility_code': {
+        'type': 'string',
+        'required': True,
+        'unique': True,
+    },
+    'facility_name': {
+        'type': 'string',
+        'required': True,
+    },
+    'description': {
+        'type': 'string',
+    },
+    'keywords': {
+        'type': 'list',
+        'schema': {
+            'type': 'string',
+        },
+    },
+    'group': {
+        'type': 'string',
+    },
+    'attributes': {
+        'type': 'list',
+        'schema': attribute_schema,
+    },
+    'endpoint': {
+        'type': 'string',
+    },
+}
