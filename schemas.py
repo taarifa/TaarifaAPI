@@ -278,3 +278,23 @@ facility_schema = {
         'type': 'string',
     },
 }
+
+resource_schema = {
+    'facility_code': {
+        'type': 'string',
+        'required': True,
+        'data_relation': {
+            'resource': 'facilities',
+            'field': 'facility_code',
+        }
+    },
+    'lat': {
+        'type': 'float',
+    },
+    'long': {
+        'type': 'float',
+    },
+    'description': {
+        'type': 'string',
+    },
+}
