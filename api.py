@@ -61,9 +61,10 @@ def add_services():
 # Register hook to add resource for service when inserted into the database
 # FIXME: this hook fails in debug mode due an AssertionError raised by Flask
 api.on_insert_services += register_services
+add_services()
 
-if __name__ == '__main__':
-    add_services()
+
+def main():
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
         port = int(environ.get('PORT'))
@@ -72,3 +73,6 @@ if __name__ == '__main__':
         port = 5000
         host = '127.0.0.1'
     api.run(host=host, port=port)
+
+if __name__ == '__main__':
+    main()
