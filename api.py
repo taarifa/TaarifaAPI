@@ -23,7 +23,7 @@ def add_document(resource, document):
                                   content_type='application/json')
 
 
-def delete_resource(resource):
+def delete_documents(resource):
     "Delete all documents of the given resource."
     return api.test_client().delete('/' + URL_PREFIX + '/' + resource)
 
