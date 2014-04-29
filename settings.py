@@ -20,14 +20,21 @@ if 'MONGOLAB_URI' in environ:
 else:
     MONGO_DBNAME = API_NAME
 
+# Enable reads (GET), inserts (POST) and DELETE for resources/collections
+# (if you omit this line, the API will default to ['GET'] and provide
+# read-only access to the endpoint).
+RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
+
+# Enable reads (GET), edits (PATCH) and deletes of individual items
+# (defaults to read-only item access).
+ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
+
 services = {
     "schema": service_schema,
-    "resource_methods": ['GET', 'POST', 'DELETE'],
 }
 
 requests = {
     "schema": request_schema,
-    "resource_methods": ['GET', 'POST', 'DELETE'],
 }
 
 DOMAIN = {

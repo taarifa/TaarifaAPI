@@ -39,7 +39,6 @@ def register_service(resource, schema, service_code):
     api.register_resource(resource,
                           {'item_title': resource,
                            'schema': schema,
-                           'resource_methods': ['GET', 'POST', 'DELETE'],
                            'datasource': {
                                'source': 'requests',
                                'filter': {'service_code': service_code}}})
