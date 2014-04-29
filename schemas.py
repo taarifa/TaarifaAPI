@@ -277,6 +277,11 @@ facility_schema = {
     'endpoint': {
         'type': 'string',
     },
+    'fields': {
+        'required': True,
+        'type': 'dict',
+        'keyschema': field_schema,
+    },
 }
 
 resource_schema = {
