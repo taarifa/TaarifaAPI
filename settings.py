@@ -3,7 +3,7 @@
 from os import environ
 from urlparse import urlparse
 
-from schemas import request_schema, service_schema
+from schemas import facility_schema, request_schema, service_schema
 
 API_NAME = 'Taarifa'
 URL_PREFIX = 'api'
@@ -37,9 +37,15 @@ requests = {
     "schema": request_schema,
 }
 
+facilities = {
+    "item_title": "facility",
+    "schema": facility_schema,
+}
+
 DOMAIN = {
     'services': services,
     'requests': requests,
+    'facilities': facilities,
 }
 
 # FIXME: Temporarily allow CORS requests for development purposes
