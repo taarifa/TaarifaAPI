@@ -293,13 +293,4 @@ resource_schema = {
             'field': 'facility_code',
         }
     },
-    'lat': {
-        'type': 'float',
-    },
-    'long': {
-        'type': 'float',
-    },
-    'description': {
-        'type': 'string',
-    },
 }
