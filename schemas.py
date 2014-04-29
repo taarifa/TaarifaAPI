@@ -171,3 +171,76 @@ service_schema = {
         'type': 'string',
     },
 }
+
+# Service request conforming to the Open311 GeoReport v2 request definition:
+# http://wiki.open311.org/GeoReport_v2#POST_Service_Request
+# http://wiki.open311.org/GeoReport_v2#GET_Service_Requests
+request_schema = {
+    'service_code': {
+        'type': 'string',
+        'required': True,
+        'data_relation': {
+            'resource': 'services',
+            'field': 'service_code',
+        }
+    },
+    # FIXME: at least one of the location fields is required
+    'lat': {
+        'type': 'float',
+    },
+    'long': {
+        'type': 'float',
+    },
+    'address_string': {
+        'type': 'string',
+    },
+    'address_id': {
+        'type': 'string',
+    },
+    'zipcode': {
+        'type': 'string',
+    },
+    'email': {
+        'type': 'string',  # FIXME: add email validator?
+    },
+    'device_id': {
+        'type': 'string',
+    },
+    'account_id': {  # FIXME: account management?
+        'type': 'string',
+    },
+    'first_name': {
+        'type': 'string',
+    },
+    'last_name': {
+        'type': 'string',
+    },
+    'phone': {
+        'type': 'string',
+    },
+    'description': {
+        'type': 'string',
+    },
+    'media_url': {
+        'type': 'string',
+    },
+    'status': {
+        'type': 'string',
+        'allowed': ['open', 'closed'],
+        'default': 'open',
+    },
+    'status_notes': {
+        'type': 'string',
+    },
+    'agency_responsible': {
+        'type': 'string',
+    },
+    'service_notice': {
+        'type': 'string',
+    },
+    # requested_datetime = _created
+    # updated_datetime = _updated
+    'expected_datetime': {
+        'type': 'datetime',
+    },
+}
