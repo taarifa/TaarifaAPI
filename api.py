@@ -1,8 +1,9 @@
-import json
 from os import environ
 
 from eve import Eve
 from eve.io.mongo import Validator
+from eve.methods.delete import delete
+from eve.methods.post import post
 
 from settings import API_NAME, URL_PREFIX, requests, resources
 
@@ -18,14 +19,14 @@ api = Eve(API_NAME, validator=KeySchemaValidator)
 
 def add_document(resource, document):
     "Add a new document to the given resource."
-    return api.test_client().post('/' + URL_PREFIX + '/' + resource,
-                                  data=json.dumps(document),
-                                  content_type='application/json')
+    with api.test_request_context('/' + URL_PREFIX + '/' + resource):
+        return post(resource, payl=document)
 
 
 def delete_documents(resource):
     "Delete all documents of the given resource."
-    return api.test_client().delete('/' + URL_PREFIX + '/' + resource)
+    with api.test_request_context('/' + URL_PREFIX + '/' + resource):
+        return delete(resource)
 
 
 def register_resource(resource, schema, source, filt):
