@@ -1,3 +1,14 @@
+boolean_field_false = {'type': 'boolean', 'default': False}
+boolean_field_true = {'type': 'boolean', 'default': True}
+integer_field = {'type': 'integer'}
+float_field = {'type': 'float'}
+list_field = {'type': 'list'}
+string_field = {'type': 'string'}
+unique_string_field = {'type': 'string', 'unique': True}
+required_string_field = {'type': 'string', 'required': True}
+unique_req_string_field = {'type': 'string', 'required': True, 'unique': True}
+dict_field = {'type': 'dict'}
+
 field_schema = {
     'type': {
         'type': 'string',
@@ -12,84 +23,36 @@ field_schema = {
                     'objectid',
                     'file'],
     },
-    'required': {
-        'type': 'boolean',
-        'default': False,
-    },
-    'readonly': {
-        'type': 'boolean',
-        'default': False,
-    },
-    'minlength': {
-        'type': 'integer',
-    },
-    'maxlength': {
-        'type': 'integer',
-    },
-    'min': {
-        'type': 'integer',
-    },
-    'max': {
-        'type': 'integer',
-    },
-    'allowed': {
-        'type': 'list',
-    },
-    'empty': {
-        'type': 'boolean',
-        'default': True,
-    },
-    'items': {
-        'type': 'list',
-    },
-    'scheam': {
-        'type': 'dict',
-    },
-    'unique': {
-        'type': 'boolean',
-        'default': False,
-    },
+    'required': boolean_field_false,
+    'readonly': boolean_field_false,
+    'minlength': integer_field,
+    'maxlength': integer_field,
+    'min': integer_field,
+    'max': integer_field,
+    'allowed': list_field,
+    'empty': boolean_field_true,
+    'items': list_field,
+    'scheam': dict_field,
+    'unique': boolean_field_false,
     'data_relation': {
         'type': 'dict',
         'schema': {
-            'resource': {
-                'type': 'string',
-            },
-            'field': {
-                'type': 'string',
-            },
-            'embeddable': {
-                'type': 'boolean',
-                'default': False,
-            },
-            'version': {
-                'type': 'boolean',
-                'default': False,
-            },
+            'resource': string_field,
+            'field': string_field,
+            'embeddable': boolean_field_false,
+            'version': boolean_field_false,
         },
     },
-    'nullable': {
-        'type': 'boolean',
-        'default': False,
-    },
+    'nullable': boolean_field_false,
     'default': {},
-    'versioned': {
-        'type': 'boolean',
-        'default': True,
-    },
+    'versioned': boolean_field_true,
 }
 
 # Service attributes conforming to the Open311 GeoReport v2 service definition:
 # http://wiki.open311.org/GeoReport_v2#Response_2
 attribute_schema = {
-    'variable': {
-        'type': 'boolean',
-        'default': False,
-    },
-    'code': {
-        'type': 'string',
-        'unique': True,
-    },
+    'variable': boolean_field_false,
+    'code': unique_string_field,
     'datatype': {
         'type': 'string',
         'allowed': ['string',
@@ -99,28 +62,15 @@ attribute_schema = {
                     'singlevaluelist',
                     'multivaluelist'],
     },
-    'required': {
-        'type': 'boolean',
-        'default': False,
-    },
-    'datatype_description': {
-        'type': 'string',
-    },
-    'order': {
-        'type': 'integer',
-    },
-    'description': {
-        'type': 'string',
-    },
+    'required': boolean_field_false,
+    'datatype_description': string_field,
+    'order': integer_field,
+    'description': string_field,
     'values': {
         'type': 'list',
         'schema': {
-            'key': {
-                'type': 'string',
-            },
-            'name': {
-                'type': 'string',
-            },
+            'key': string_field,
+            'name': string_field,
         },
     },
 }
@@ -130,25 +80,11 @@ attribute_schema = {
 # endpoint is an extra fields to denote the dynamically created endpoint for
 # the service
 service_schema = {
-    'jurisdiction_id': {
-        'type': 'string',
-    },
-    'service_code': {
-        'type': 'string',
-        'required': True,
-        'unique': True,
-    },
-    'service_name': {
-        'type': 'string',
-        'required': True,
-    },
-    'description': {
-        'type': 'string',
-    },
-    'metadata': {
-        'type': 'boolean',
-        'default': False,
-    },
+    'jurisdiction_id': string_field,
+    'service_code': unique_req_string_field,
+    'service_name': required_string_field,
+    'description': string_field,
+    'metadata': boolean_field_false,
     'type': {
         'type': 'string',
         'allowed': ['realtime', 'batch', 'blackbox'],
@@ -156,20 +92,14 @@ service_schema = {
     },
     'keywords': {
         'type': 'list',
-        'schema': {
-            'type': 'string',
-        },
+        'schema': string_field,
     },
-    'group': {
-        'type': 'string',
-    },
+    'group': string_field,
     'attributes': {
         'type': 'list',
         'schema': attribute_schema,
     },
-    'endpoint': {
-        'type': 'string',
-    },
+    'endpoint': string_field,
 }
 
 # Service request conforming to the Open311 GeoReport v2 request definition:
@@ -185,59 +115,27 @@ request_schema = {
         }
     },
     # FIXME: at least one of the location fields is required
-    'lat': {
-        'type': 'float',
-    },
-    'long': {
-        'type': 'float',
-    },
-    'address_string': {
-        'type': 'string',
-    },
-    'address_id': {
-        'type': 'string',
-    },
-    'zipcode': {
-        'type': 'string',
-    },
-    'email': {
-        'type': 'string',  # FIXME: add email validator?
-    },
-    'device_id': {
-        'type': 'string',
-    },
-    'account_id': {  # FIXME: account management?
-        'type': 'string',
-    },
-    'first_name': {
-        'type': 'string',
-    },
-    'last_name': {
-        'type': 'string',
-    },
-    'phone': {
-        'type': 'string',
-    },
-    'description': {
-        'type': 'string',
-    },
-    'media_url': {
-        'type': 'string',
-    },
+    'lat': float_field,
+    'long': float_field,
+    'address_string': string_field,
+    'address_id': string_field,
+    'zipcode': string_field,
+    'email': string_field,
+    'device_id': string_field,
+    'account_id': string_field,
+    'first_name': string_field,
+    'last_name': string_field,
+    'phone': string_field,
+    'description': string_field,
+    'media_url': string_field,
     'status': {
         'type': 'string',
         'allowed': ['open', 'closed'],
         'default': 'open',
     },
-    'status_notes': {
-        'type': 'string',
-    },
-    'agency_responsible': {
-        'type': 'string',
-    },
-    'service_notice': {
-        'type': 'string',
-    },
+    'status_notes': string_field,
+    'agency_responsible': string_field,
+    'service_notice': string_field,
     # requested_datetime = _created
     # updated_datetime = _updated
     'expected_datetime': {
@@ -246,37 +144,20 @@ request_schema = {
 }
 
 facility_schema = {
-    'jurisdiction_id': {
-        'type': 'string',
-    },
-    'facility_code': {
-        'type': 'string',
-        'required': True,
-        'unique': True,
-    },
-    'facility_name': {
-        'type': 'string',
-        'required': True,
-    },
-    'description': {
-        'type': 'string',
-    },
+    'jurisdiction_id': string_field,
+    'facility_code': unique_req_string_field,
+    'facility_name': required_string_field,
+    'description': string_field,
     'keywords': {
         'type': 'list',
-        'schema': {
-            'type': 'string',
-        },
+        'schema': string_field,
     },
-    'group': {
-        'type': 'string',
-    },
+    'group': string_field,
     'attributes': {
         'type': 'list',
         'schema': attribute_schema,
     },
-    'endpoint': {
-        'type': 'string',
-    },
+    'endpoint': string_field,
     'fields': {
         'required': True,
         'type': 'dict',
