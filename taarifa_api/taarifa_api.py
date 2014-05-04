@@ -1,4 +1,4 @@
-from os import environ
+from os import environ, path
 
 from eve import Eve
 from eve.io.mongo import Validator
@@ -14,7 +14,8 @@ class KeySchemaValidator(Validator):
         for key, value in dct.items():
             self._validate_schema(schema, key, value)
 
-api = Eve(API_NAME, validator=KeySchemaValidator)
+settingsfile = path.join(path.abspath(path.dirname(__file__)), 'settings.py')
+api = Eve(API_NAME, validator=KeySchemaValidator, settings=settingsfile)
 
 
 def add_document(resource, document):
