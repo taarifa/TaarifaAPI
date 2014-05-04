@@ -5,7 +5,7 @@ from eve.io.mongo import Validator
 from eve.methods.delete import delete
 from eve.methods.post import post
 
-from settings import API_NAME, URL_PREFIX, requests, resources
+from settings import API_NAME, requests, resources
 
 
 class KeySchemaValidator(Validator):
@@ -17,16 +17,18 @@ class KeySchemaValidator(Validator):
 settingsfile = path.join(path.abspath(path.dirname(__file__)), 'settings.py')
 api = Eve(API_NAME, validator=KeySchemaValidator, settings=settingsfile)
 
+resource_url = lambda resource: '/' + api.config['URL_PREFIX'] + '/' + resource
+
 
 def add_document(resource, document):
     "Add a new document to the given resource."
-    with api.test_request_context('/' + URL_PREFIX + '/' + resource):
+    with api.test_request_context(resource_url(resource)):
         return post(resource, payl=document)
 
 
 def delete_documents(resource):
     "Delete all documents of the given resource."
-    with api.test_request_context('/' + URL_PREFIX + '/' + resource):
+    with api.test_request_context(resource_url(resource)):
         return delete(resource)
 
 
