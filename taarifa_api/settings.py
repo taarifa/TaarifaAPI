@@ -3,8 +3,14 @@
 from os import environ
 from urlparse import urlparse
 
-from schemas import facility_schema, request_schema, resource_schema, \
-    service_schema
+# This module is both imported from and executed. In the former case only
+# relative imports are supported, in the latter only absolute.
+try:
+    from schemas import facility_schema, request_schema, resource_schema, \
+        service_schema
+except ImportError:
+    from taarifa_api.schemas import facility_schema, request_schema, \
+        resource_schema, service_schema
 
 API_NAME = 'TaarifaAPI'
 URL_PREFIX = 'api'
