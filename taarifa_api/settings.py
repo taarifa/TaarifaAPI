@@ -6,7 +6,7 @@ from urlparse import urlparse
 from schemas import facility_schema, request_schema, resource_schema, \
     service_schema
 
-API_NAME = 'Taarifa'
+API_NAME = 'TaarifaAPI'
 URL_PREFIX = 'api'
 if 'EVE_DEBUG' in environ:
     DEBUG = True
