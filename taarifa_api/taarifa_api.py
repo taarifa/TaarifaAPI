@@ -5,6 +5,9 @@ from eve.io.mongo import Validator
 from eve.methods.delete import delete
 from eve.methods.post import post
 
+from flask.ext.bootstrap import Bootstrap
+from eve_docs import eve_docs
+
 from settings import API_NAME, requests, resources
 
 
@@ -16,6 +19,9 @@ class KeySchemaValidator(Validator):
 
 settingsfile = path.join(path.abspath(path.dirname(__file__)), 'settings.py')
 api = Eve(API_NAME, validator=KeySchemaValidator, settings=settingsfile)
+
+Bootstrap(api)
+api.register_blueprint(eve_docs, url_prefix='/docs')
 
 resource_url = lambda resource: '/' + api.config['URL_PREFIX'] + '/' + resource
 
