@@ -65,5 +65,7 @@ DOMAIN = {
     'resources': resources,
 }
 
+# Allow requesting up to 100 results per page
+PAGINATION_LIMIT = 100
 # FIXME: Temporarily allow CORS requests for development purposes
 X_DOMAINS = "*"
