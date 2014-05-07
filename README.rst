@@ -29,13 +29,19 @@ Taarifa API provides a way for clients to create services, facilities, resources
 Installation
 ____________
 
-Clone the repository
+Ensure you have installed Python, pip, & MongoDB and that MongoDB is running.
+
+Clone the repository:
 
 ``git clone https://github.com/taarifa/TaarifaAPI``
 
-Install the requirements
+Install the requirements:
 
 ``pip install -r requirements.txt``
+
+Install the package itself:
+
+``python setup.py install``  (use ``develop`` instead of ``install`` if you want to work on the code)
 
 We suggest you use virtualenv for managing your python environment.
 
