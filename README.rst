@@ -41,7 +41,7 @@ Install the requirements:
 
 Install the package itself:
 
-``python setup.py install``  (use ``develop`` instead of ``install`` if you want to work on the code)
+``python setup.py develop``
 
 We suggest you use virtualenv for managing your python environment.
 
