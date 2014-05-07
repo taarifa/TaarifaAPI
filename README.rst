@@ -57,7 +57,10 @@ This should start the API server. To check things are working, open a browser an
 
 ``http://localhost:5000/api``
 
-This should show you the various endpoints available.
+This should show you the various endpoints available. To see the API documentation go to:
+
+``http://localhost:5000/docs``
+
 
 Contribute
 __________
