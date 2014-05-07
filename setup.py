@@ -20,6 +20,8 @@ setup(name='TaarifaAPI',
           'Programming Language :: Python :: 2.7',
       ],
       packages=['taarifa_api'],
+      entry_points={"console_scripts":
+                    ["taarifa_api = taarifa_api.taarifa_api:main"]},
       include_package_data=True,
       zip_safe=False,
       install_requires=['Eve==0.4-dev', 'Eve-docs==0.1.4'],
