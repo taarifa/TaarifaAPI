@@ -22,5 +22,5 @@ setup(name='TaarifaAPI',
       packages=['taarifa_api'],
       include_package_data=True,
       zip_safe=False,
-      install_requires=['Eve==0.4-dev', 'Eve-docs==0.1.3'],
+      install_requires=['Eve==0.4-dev', 'Eve-docs==0.1.4'],
       dependency_links=dependency_links)
