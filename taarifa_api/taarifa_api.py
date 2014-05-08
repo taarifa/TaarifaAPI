@@ -2,7 +2,7 @@ from os import environ, path
 
 from eve import Eve
 from eve.io.mongo import Validator
-from eve.methods.delete import delete
+from eve.methods.delete import delete, deleteitem
 from eve.methods.post import post
 
 from flask.ext.bootstrap import Bootstrap
@@ -30,6 +30,12 @@ def add_document(resource, document):
     "Add a new document to the given resource."
     with api.test_request_context(resource_url(resource)):
         return post(resource, payl=document)
+
+
+def delete_document(resource, document):
+    "Delete a given documents of the given resource."
+    with api.test_request_context(resource_url(resource)):
+        return deleteitem(resource, document)
 
 
 def delete_documents(resource):
