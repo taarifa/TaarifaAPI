@@ -64,7 +64,7 @@ Install the package itself: ::
 
   python setup.py develop
 
-We suggest you use virtualenv for managing your python environment.
+We suggest you use virtualenv_ for managing your python environment.
 
 
 Usage
@@ -100,3 +100,4 @@ guidelines`_ for further details.
 .. _Eve: http://python-eve.org
 .. _Flask: http://flask.pocoo.org
 .. _contributing guidelines: CONTRIBUTING.rst
+.. _virtualenv: http://docs.python-guide.org/en/latest/dev/virtualenvs/
