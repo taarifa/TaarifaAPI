@@ -32,7 +32,7 @@ field_schema = {
     'allowed': list_field,
     'empty': boolean_field_true,
     'items': list_field,
-    'scheam': dict_field,
+    'schema': dict_field,
     'unique': boolean_field_false,
     'data_relation': {
         'type': 'dict',
