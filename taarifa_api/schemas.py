@@ -106,6 +106,7 @@ service_schema = {
 # http://wiki.open311.org/GeoReport_v2#POST_Service_Request
 # http://wiki.open311.org/GeoReport_v2#GET_Service_Requests
 request_schema = {
+    'jurisdiction_id': string_field,
     'service_code': {
         'type': 'string',
         'required': True,
@@ -114,6 +115,7 @@ request_schema = {
             'field': 'service_code',
         }
     },
+    'attribute': dict_field,
     # FIXME: at least one of the location fields is required
     'lat': float_field,
     'long': float_field,
