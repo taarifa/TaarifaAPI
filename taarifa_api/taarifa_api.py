@@ -26,6 +26,11 @@ api.register_blueprint(eve_docs, url_prefix='/docs')
 resource_url = lambda resource: '/' + api.config['URL_PREFIX'] + '/' + resource
 
 
+def get_schema(resource):
+    "Get the schema for a given resource."
+    return api.config['DOMAIN'][resource]['schema']
+
+
 def add_document(resource, document):
     "Add a new document to the given resource."
     with api.test_request_context(resource_url(resource)):
