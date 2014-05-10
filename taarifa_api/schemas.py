@@ -135,7 +135,15 @@ request_schema = {
             'field': 'service_code',
         }
     },
-    'attribute': dict_field,
+    'attribute': {
+        'type': 'dict',
+        'dynamicschema': {
+            'resource': 'services',
+            'field': 'service_code',
+            'schema': 'attributes',
+            'transform': attributes2schema,
+        },
+    },
     # FIXME: at least one of the location fields is required
     'lat': float_field,
     'long': float_field,
