@@ -5,6 +5,7 @@ from eve.io.mongo import Validator
 from eve.methods.delete import delete, deleteitem
 from eve.methods.post import post
 
+from flask import current_app as app
 from flask.ext.bootstrap import Bootstrap
 from eve_docs import eve_docs
 
@@ -12,6 +13,29 @@ from settings import API_NAME, requests, resources
 
 
 class KeySchemaValidator(Validator):
+
+    def _validate_dynamicschema(self, schema, field, dct):
+        """Validate the dictionary `dct` against a schema dynamically read from
+        another document of (potentially) another resource.
+
+        A `dynamicschema` has the following fields:
+
+        * ``resource``: resource to load the schema from
+        * ``field``: the field name to use in querying the resource (its value
+          is taken as the same field in the current document)
+        * ``schema``: the field in the retrieved document holding the schema
+        * ``transform``: a function to transform the schema (optional)"""
+        query = {schema['field']: self.document[schema['field']]}
+        res = app.data.find_one(schema['resource'], None, **query)
+        if res:
+            dynamic_schema = res[schema['schema']]
+            if 'transform' in schema:
+                dynamic_schema = schema['transform'](dynamic_schema)
+            self._validate_schema(dynamic_schema, field, dct)
+        else:
+            self._error(field, "Could not find any %s for query %s" %
+                        (schema['resource'], query))
+
     def _validate_keyschema(self, schema, field, dct):
         "Validate all keys of dictionary `dct` against schema `schema`."
         for key, value in dct.items():
