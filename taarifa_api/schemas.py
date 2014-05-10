@@ -8,6 +8,11 @@ unique_string_field = {'type': 'string', 'unique': True}
 required_string_field = {'type': 'string', 'required': True}
 unique_req_string_field = {'type': 'string', 'required': True, 'unique': True}
 dict_field = {'type': 'dict'}
+data_relation = {'type': 'dict',
+                 'schema': {'resource': string_field,
+                            'field': string_field,
+                            'embeddable': boolean_field_false,
+                            'version': boolean_field_false}}
 
 field_schema = {
     'type': {
@@ -34,15 +39,7 @@ field_schema = {
     'items': list_field,
     'schema': dict_field,
     'unique': boolean_field_false,
-    'data_relation': {
-        'type': 'dict',
-        'schema': {
-            'resource': string_field,
-            'field': string_field,
-            'embeddable': boolean_field_false,
-            'version': boolean_field_false,
-        },
-    },
+    'data_relation': data_relation,
     'nullable': boolean_field_false,
     'default': {},
     'versioned': boolean_field_true,
@@ -51,7 +48,7 @@ field_schema = {
 # Service attributes conforming to the Open311 GeoReport v2 service definition:
 # http://wiki.open311.org/GeoReport_v2#Response_2
 attribute_schema = {
-    'variable': boolean_field_false,
+    'variable': boolean_field_true,
     'code': unique_string_field,
     'datatype': {
         'type': 'string',
@@ -73,6 +70,9 @@ attribute_schema = {
             'name': string_field,
         },
     },
+    # This field is not part of the Open311 service definition, but allows to
+    # enforce foreign key constraints in the API
+    'relation': data_relation,
 }
 
 # Service conforming to the Open311 GeoReport v2 service definition:
