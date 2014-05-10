@@ -102,6 +102,26 @@ service_schema = {
     'endpoint': string_field,
 }
 
+
+def attributes2schema(attributes):
+    """Transform the list of Open311 service attributes into a valid Cerberus
+    schema (see: http://wiki.open311.org/GeoReport_v2#Response_2)."""
+    schema = {}
+    for attr in attributes:
+        if attr['variable']:
+            typ = attr['datatype']
+            # Attributes of type 'text', 'singlevaluelist', 'multivaluelist'
+            # are represented as strings
+            if typ in ['text', 'singlevaluelist', 'multivaluelist']:
+                typ = 'string'
+            field = attr['code']
+            schema[field] = {'type': typ, 'required': attr['required']}
+            # If the attribute has a list of values, use their keys as allowed
+            # values for this attribute
+            if 'values' in attr:
+                schema[field]['allowed'] = [v['key'] for v in attr['values']]
+    return schema
+
 # Service request conforming to the Open311 GeoReport v2 request definition:
 # http://wiki.open311.org/GeoReport_v2#POST_Service_Request
 # http://wiki.open311.org/GeoReport_v2#GET_Service_Requests
