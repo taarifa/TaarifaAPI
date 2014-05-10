@@ -120,6 +120,10 @@ def attributes2schema(attributes):
             # values for this attribute
             if 'values' in attr:
                 schema[field]['allowed'] = [v['key'] for v in attr['values']]
+            # If the attribute has a data relation, enforce the foreign key
+            # constraint on it
+            if 'relation' in attr:
+                schema[field]['data_relation'] = attr['relation']
     return schema
 
 # Service request conforming to the Open311 GeoReport v2 request definition:
