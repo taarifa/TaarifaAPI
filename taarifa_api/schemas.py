@@ -43,6 +43,7 @@ field_schema = {
     'nullable': boolean_field_false,
     'default': {},
     'versioned': boolean_field_true,
+    'label': string_field,
 }
 
 # Service attributes conforming to the Open311 GeoReport v2 service definition:
