@@ -49,8 +49,20 @@ features it provides include:
 Installation
 ____________
 
-Ensure you have installed Python, pip, & MongoDB and that MongoDB is
+Ensure you have installed Python, pip and MongoDB and that MongoDB is
 running.
+
+Install virtualenv_ and virtualenvwrapper (you might need `sudo` for this): ::
+
+  pip install virtualenv virtualenvwrapper
+
+`Set up virtualenvwrapper`_ according to your shell and create a virtualenv: ::
+
+  mkvirtualenv TaarifaAPI
+
+If you already created the virtualenv, activate it: ::
+
+  workon TaarifaAPI
 
 Clone the repository: ::
 
@@ -63,8 +75,6 @@ Install the requirements: ::
 Install the package itself: ::
 
   python setup.py develop
-
-We suggest you use virtualenv_ for managing your python environment.
 
 
 Usage
@@ -101,3 +111,4 @@ guidelines`_ for further details.
 .. _Flask: http://flask.pocoo.org
 .. _contributing guidelines: CONTRIBUTING.rst
 .. _virtualenv: http://docs.python-guide.org/en/latest/dev/virtualenvs/
+.. _Set up virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/install.html#shell-startup-file
