@@ -68,8 +68,9 @@ Clone the repository: ::
 
   git clone https://github.com/taarifa/TaarifaAPI
 
-Install the requirements: ::
+Change into the directory and install the requirements: ::
 
+  cd TaarifaAPI
   pip install -r requirements.txt
 
 Install the package itself: ::
