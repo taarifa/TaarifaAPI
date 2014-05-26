@@ -13,7 +13,7 @@ except ImportError:
         resource_schema, service_schema
 
 API_NAME = 'TaarifaAPI'
-URL_PREFIX = 'api'
+URL_PREFIX = environ.get('API_URL_PREFIX', 'api')
 if 'EVE_DEBUG' in environ:
     DEBUG = True
 
