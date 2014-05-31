@@ -1,4 +1,4 @@
 --allow-external Eve
 --allow-unverified Eve
--e git+https://github.com/nicolaiarocci/eve#egg=Eve-0.4-dev
+-e git+https://github.com/nicolaiarocci/eve@develop#egg=Eve-0.4-dev
 Eve-docs==0.1.4
