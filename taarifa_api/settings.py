@@ -25,7 +25,7 @@ if 'MONGOLAB_URI' in environ:
     MONGO_PASSWORD = url.password
     MONGO_DBNAME = url.path[1:]
 else:
-    MONGO_DBNAME = API_NAME
+    MONGO_DBNAME = environ.get('MONGO_DBNAME', API_NAME)
 
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
 # (if you omit this line, the API will default to ['GET'] and provide
