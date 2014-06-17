@@ -41,6 +41,19 @@ class KeySchemaValidator(Validator):
         for key, value in dct.items():
             self._validate_schema(schema, key, value)
 
+    def _validate_type_point(self, field, value):
+        "Validate a GeoJSON Point."
+        schema = {'type': {'type': 'string', 'choices': ['Point']},
+                  'coordinates': {'type': 'list',
+                                  'minlength': 2,
+                                  'maxlength': 2,
+                                  'schema': {'type': 'float'}}}
+        self._validate_schema(schema, field, value)
+        if not -180.0 <= value['coordinates'][0] <= 180.0:
+            self._error(field, "Longitude must be in the range -180.0, 180.0")
+        if not -90.0 <= value['coordinates'][1] <= 90.0:
+            self._error(field, "Latitude must be in the range -90.0, 90.0")
+
 settingsfile = path.join(path.abspath(path.dirname(__file__)), 'settings.py')
 api = Eve(API_NAME, validator=KeySchemaValidator, settings=settingsfile)
 
