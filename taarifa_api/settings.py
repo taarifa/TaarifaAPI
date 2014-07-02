@@ -69,3 +69,7 @@ DOMAIN = {
 PAGINATION_LIMIT = 100
 # FIXME: Temporarily allow CORS requests for development purposes
 X_DOMAINS = "*"
+# Enable Flask-Compress in debug mode
+COMPRESS_DEBUG = True
+# gzip compression level
+COMPRESS_LEVEL = 9

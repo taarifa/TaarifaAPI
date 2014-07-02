@@ -7,6 +7,7 @@ from eve.methods.post import post
 
 from flask import current_app as app
 from flask.ext.bootstrap import Bootstrap
+from flask.ext.compress import Compress
 from eve_docs import eve_docs
 
 from settings import API_NAME, requests, resources
@@ -58,6 +59,7 @@ settingsfile = path.join(path.abspath(path.dirname(__file__)), 'settings.py')
 api = Eve(API_NAME, validator=KeySchemaValidator, settings=settingsfile)
 
 Bootstrap(api)
+Compress(api)
 api.register_blueprint(eve_docs, url_prefix='/docs')
 
 resource_url = lambda resource: '/' + api.config['URL_PREFIX'] + '/' + resource
