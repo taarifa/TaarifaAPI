@@ -53,7 +53,6 @@ facilities = {
 
 resources = {
     "schema": resource_schema,
-    "versioning": True,
     "source": "resources",
     "key": "facility_code",
 }
@@ -73,3 +72,5 @@ X_DOMAINS = "*"
 COMPRESS_DEBUG = True
 # gzip compression level
 COMPRESS_LEVEL = 9
+# Enable document version control
+VERSIONING = True
