@@ -52,7 +52,7 @@ ____________
 Ensure you have installed Python, pip and MongoDB and that MongoDB is
 running.
 
-Install virtualenv_ and virtualenvwrapper (you might need `sudo` for this): ::
+Install virtualenv_ and virtualenvwrapper (you might need admin rights for this): ::
 
   pip install virtualenv virtualenvwrapper
 
