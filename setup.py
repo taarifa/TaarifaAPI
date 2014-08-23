@@ -1,6 +1,5 @@
 from setuptools import setup
 
-dependency_links = ['git+https://github.com/nicolaiarocci/eve#egg=Eve-0.4-dev']
 setup(name='TaarifaAPI',
       version='dev',
       description='The Taarifa API for managing resources and requests',
@@ -26,5 +25,4 @@ setup(name='TaarifaAPI',
       zip_safe=False,
       install_requires=['Eve==0.4',
                         'Eve-docs==0.1.4',
-                        'Flask-Compress==1.0.2'],
-      dependency_links=dependency_links)
+                        'Flask-Compress==1.0.2'])
