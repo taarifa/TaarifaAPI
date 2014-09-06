@@ -47,7 +47,7 @@ features it provides include:
 
 
 Installation
-____________
+------------
 
 Ensure you have installed Python, pip and MongoDB and that MongoDB is
 running.
@@ -79,7 +79,7 @@ Install the package itself: ::
 
 
 Usage
-_____
+-----
 
 Start the API server from the TaarifaAPI directory by running: ::
 
@@ -97,7 +97,7 @@ documentation go to: ::
 
 
 Contribute
-__________
+----------
 
 There is still much left do do and Taarifa is currently undergoing rapid
 development. To get started send a message to the taarifa-dev_
