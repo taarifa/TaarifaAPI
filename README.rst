@@ -5,30 +5,30 @@ Background
 ------------
 
 Taarifa_ is an open source platform for the crowd sourced reporting and
-triaging of infrastructure related issues. Think of it as a bug tracker
-for the real world which helps to engage citizens with their local
-government.
+triaging of infrastructure related issues. Think of it as a bug tracker for
+the real world which helps to engage citizens with their local government.
 
-Taarifa was founded at the 2010 WaterHackathon, Winner of the 2013
-Sanitation Hackathon, finalist at the 2014 Barcelona World Mobile
-Congress, and has been deployed in Uganda, Ghana, and Tanzania.
+Taarifa was founded at the 2011 London WaterHackathon, Winner of the 2013
+Sanitation Hackathon, finalist at the 2014 Barcelona World Mobile Congress,
+and has been deployed in Uganda, Ghana, and Tanzania.
+
 
 The API
 -------
 
 The API forms the core of the Taarifa platform. It provides a RESTful
 API (built on Flask_ and Eve_) that clients can interact with to create
-and triage 'bugreports' relating to public infrastructure (e.g., the
+and triage "bug reports" relating to public infrastructure (e.g., the
 public toilet is broken).
 
-To understand the API it is important to clarify some terminology
+To understand the API it is important to clarify some terminology:
 
-- **service**: a service provided by some authority (e.g., electricity,
-  water, road cleaning, ..)
-- **facility**: category of physical infrastructure (e.g., power lines,
-  water pipes, road network, ..)
-- **resource**: particular addressable piece of infrastructure (e.g.,
-  Church Street, the waterpoint at (23.44,-5.87)
+- **service**: a service provided by some authority (e.g. electricity,
+  water, road cleaning, ...)
+- **facility**: category of physical infrastructure (e.g. power lines,
+  water pipes, road network, ...)
+- **resource**: particular addressable piece of infrastructure (e.g.
+  Church Street, the waterpoint at (23.44,-5.87))
 - **request**: a ticket/issue/report made by a citizen about a
   particular resource, service, or both
 
@@ -41,7 +41,7 @@ resources, and requests dynamically (at runtime). In particular the
 features it provides include:
 
 - defining new service/facility/resource/request schemas
-- automatic validation that submitted service/facility/.. instances
+- automatic validation that submitted service/facility/... instances
   conform to the schema
 - versioning / history to track changes to resources and requests
 
@@ -49,10 +49,10 @@ features it provides include:
 Installation
 ------------
 
-Ensure you have installed Python, pip and MongoDB and that MongoDB is
-running.
+Ensure you have installed Python, pip and MongoDB and that MongoDB is running.
 
-Install virtualenv_ and virtualenvwrapper (you might need admin rights for this): ::
+Install virtualenv_ and virtualenvwrapper (you might need admin rights for
+this): ::
 
   pip install virtualenv virtualenvwrapper
 
@@ -81,7 +81,7 @@ Install the package itself: ::
 Usage
 -----
 
-Start the API server from the TaarifaAPI directory by running: ::
+Start the API server from the ``TaarifaAPI`` directory by running: ::
 
   python taarifa_api/taarifa_api.py
 
@@ -100,10 +100,9 @@ Contribute
 ----------
 
 There is still much left do do and Taarifa is currently undergoing rapid
-development. To get started send a message to the taarifa-dev_
-mailinglist and check out the github issues. We use the github pull
-request model for all contributions. Refer to the `contributing
-guidelines`_ for further details.
+development. To get started send a message to the taarifa-dev_ mailinglist and
+check out the github issues. We use the github pull request model for all
+contributions. Refer to the `contributing guidelines`_ for further details.
 
 .. _Taarifa: http://taarifa.org
 .. _Open311: http://open311.org
