@@ -45,6 +45,12 @@ features it provides include:
   conform to the schema
 - versioning / history to track changes to resources and requests
 
+Distributions
+-------------
+
+The goal is to have different distributions or flavours of Taarifa, built on
+top of the core API. The main one is currently the `Taarifa Waterpoints`_
+distribution.
 
 Installation
 ------------
@@ -105,6 +111,7 @@ check out the github issues. We use the github pull request model for all
 contributions. Refer to the `contributing guidelines`_ for further details.
 
 .. _Taarifa: http://taarifa.org
+.. _Taarifa Waterpoints: https://github.com/taarifa/TaarifaWaterpoints
 .. _Open311: http://open311.org
 .. _taarifa-dev: https://groups.google.com/forum/#!forum/taarifa-dev
 .. _Eve: http://python-eve.org
