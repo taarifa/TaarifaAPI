@@ -137,7 +137,7 @@ add_facilities()
 
 @api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/values/<field>')
 def resource_values(facility_code, field):
-    """Return the unique values for the specified resource field."""
+    """Get unique values for the specified resource field."""
     query = dict(request.args.items())
     query['facility_code'] = facility_code
     resources = app.data.driver.db['resources'].find(query)
@@ -147,12 +147,32 @@ def resource_values(facility_code, field):
 
 @api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/count/<field>')
 def resource_count(facility_code, field):
-    """Return number of resources grouped a given field."""
+    """Get number of resources grouped a given field."""
     query = dict(request.args.items())
     query['facility_code'] = facility_code
     data = app.data.driver.db['resources'].group(
         field.split(','), query, initial={'count': 0},
         reduce="function(curr, result) {result.count++;}")
+    return send_response('resources', [data])
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/sum/<group>/<field>')
+def resource_sum(facility_code, group, field):
+    """Get group sum of a given field."""
+    fields = field.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            "$match": query
+        },
+        {
+            "$group": {
+                "_id": '$' + group,
+                "sum": {'$sum': {'$add': ['$' + f for f in fields] }},
+            }
+        },
+        {"$sort": {group: 1}}])['result']
     return send_response('resources', [data])
 
 
