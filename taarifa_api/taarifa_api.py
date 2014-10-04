@@ -4,8 +4,9 @@ from eve import Eve
 from eve.io.mongo import Validator
 from eve.methods.delete import delete, deleteitem
 from eve.methods.post import post
+from eve.render import send_response
 
-from flask import current_app as app
+from flask import request, current_app as app
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.compress import Compress
 from eve_docs import eve_docs
@@ -132,6 +133,16 @@ api.on_insert_services += register_services
 api.on_insert_facilities += register_facilities
 add_services()
 add_facilities()
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/values/<field>')
+def resource_values(facility_code, field):
+    """Return the unique values for the specified resource field."""
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    resources = app.data.driver.db['resources'].find(query)
+    return send_response('resources',
+                         (sorted(resources.distinct(field)),))
 
 
 def main():
