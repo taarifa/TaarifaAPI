@@ -145,6 +145,17 @@ def resource_values(facility_code, field):
                          (sorted(resources.distinct(field)),))
 
 
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/count/<field>')
+def resource_count(facility_code, field):
+    """Return number of resources grouped a given field."""
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].group(
+        field.split(','), query, initial={'count': 0},
+        reduce="function(curr, result) {result.count++;}")
+    return send_response('resources', [data])
+
+
 def main():
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
