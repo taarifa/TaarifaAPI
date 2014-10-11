@@ -206,6 +206,36 @@ def resource_diff(facility_code, group, field_a, field_b):
     return send_response('resources', [data])
 
 
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/ratio/<group>/<field_a>/<field_b>')
+def resource_ratio(facility_code, group, field_a, field_b):
+    """Get group ratio of sum of two fields."""
+    dividends = field_a.split(',')
+    divisors = field_b.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            '$match': query
+        },
+        {
+            '$group': {
+                '_id': '$' + group,
+                'sum_dividend': {'$sum': {'$add': ['$' + f for f in dividends] }},
+                'sum_divisor': {'$sum': {'$add': ['$' + f for f in divisors] }}
+            }
+        },
+        {
+            '$project': {
+                '_id': 1,
+                'sum_dividend': 1,
+                'sum_divisor': 1,
+                'ratio': {'$divide': ['$sum_dividend', '$sum_divisor']}
+            }
+        },
+        {'$sort': {group: 1}}])['result']
+    return send_response('resources', [data])
+
+
 def main():
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
