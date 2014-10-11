@@ -176,6 +176,36 @@ def resource_sum(facility_code, group, field):
     return send_response('resources', [data])
 
 
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/diff/<group>/<field_a>/<field_b>')
+def resource_diff(facility_code, group, field_a, field_b):
+    """Get group difference in sum of two fields."""
+    subtrahends = field_a.split(',')
+    minuends = field_b.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            '$match': query
+        },
+        {
+            '$group': {
+                '_id': '$' + group,
+                'sum_subtrahend': {'$sum': {'$add': ['$' + f for f in subtrahends] }},
+                'sum_minuend': {'$sum': {'$add': ['$' + f for f in minuends] }}
+            }
+        },
+        {
+            '$project': {
+                '_id': 1,
+                'sum_subtrahend': 1,
+                'sum_minuend': 1,
+                'difference': {'$subtract': ['$sum_subtrahend', '$sum_minuend']}
+            }
+        },
+        {'$sort': {group: 1}}])['result']
+    return send_response('resources', [data])
+
+
 def main():
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
