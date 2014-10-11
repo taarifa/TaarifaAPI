@@ -236,6 +236,34 @@ def resource_ratio(facility_code, group, field_a, field_b):
     return send_response('resources', [data])
 
 
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/product_sum/<group>/<field_a>/<field_b>')
+def resource_product_sum(facility_code, group, field_a, field_b):
+    """Get group sum of product of two fields."""
+    multiplicands = field_a.split(',')
+    multipliers = field_b.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            '$match': query
+        },
+        {
+            '$group': {
+                '_id': '$' + group,
+                'product_sum': {
+                    '$sum': {
+                        '$multiply': [
+                            {'$add': ['$' + f for f in multiplicands]},
+                            {'$add': ['$' + f for f in multipliers]}
+                        ]
+                    }
+                }
+            }
+        },
+        {'$sort': {group: 1}}])['result']
+    return send_response('resources', [data])
+
+
 def main():
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     if 'PORT' in environ:
