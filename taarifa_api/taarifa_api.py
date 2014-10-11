@@ -4,8 +4,9 @@ from eve import Eve
 from eve.io.mongo import Validator
 from eve.methods.delete import delete, deleteitem
 from eve.methods.post import post
+from eve.render import send_response
 
-from flask import current_app as app
+from flask import request, current_app as app
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.compress import Compress
 from eve_docs import eve_docs
@@ -132,6 +133,135 @@ api.on_insert_services += register_services
 api.on_insert_facilities += register_facilities
 add_services()
 add_facilities()
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/values/<field>')
+def resource_values(facility_code, field):
+    """Get unique values for the specified resource field."""
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    resources = app.data.driver.db['resources'].find(query)
+    return send_response('resources',
+                         (sorted(resources.distinct(field)),))
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/count/<field>')
+def resource_count(facility_code, field):
+    """Get number of resources grouped a given field."""
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].group(
+        field.split(','), query, initial={'count': 0},
+        reduce="function(curr, result) {result.count++;}")
+    return send_response('resources', [data])
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/sum/<group>/<field>')
+def resource_sum(facility_code, group, field):
+    """Get group sum of a given field."""
+    fields = field.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            "$match": query
+        },
+        {
+            "$group": {
+                "_id": '$' + group,
+                "sum": {'$sum': {'$add': ['$' + f for f in fields] }},
+            }
+        },
+        {"$sort": {group: 1}}])['result']
+    return send_response('resources', [data])
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/diff/<group>/<field_a>/<field_b>')
+def resource_diff(facility_code, group, field_a, field_b):
+    """Get group difference in sum of two fields."""
+    subtrahends = field_a.split(',')
+    minuends = field_b.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            '$match': query
+        },
+        {
+            '$group': {
+                '_id': '$' + group,
+                'sum_subtrahend': {'$sum': {'$add': ['$' + f for f in subtrahends] }},
+                'sum_minuend': {'$sum': {'$add': ['$' + f for f in minuends] }}
+            }
+        },
+        {
+            '$project': {
+                '_id': 1,
+                'sum_subtrahend': 1,
+                'sum_minuend': 1,
+                'difference': {'$subtract': ['$sum_subtrahend', '$sum_minuend']}
+            }
+        },
+        {'$sort': {group: 1}}])['result']
+    return send_response('resources', [data])
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/ratio/<group>/<field_a>/<field_b>')
+def resource_ratio(facility_code, group, field_a, field_b):
+    """Get group ratio of sum of two fields."""
+    dividends = field_a.split(',')
+    divisors = field_b.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            '$match': query
+        },
+        {
+            '$group': {
+                '_id': '$' + group,
+                'sum_dividend': {'$sum': {'$add': ['$' + f for f in dividends] }},
+                'sum_divisor': {'$sum': {'$add': ['$' + f for f in divisors] }}
+            }
+        },
+        {
+            '$project': {
+                '_id': 1,
+                'sum_dividend': 1,
+                'sum_divisor': 1,
+                'ratio': {'$divide': ['$sum_dividend', '$sum_divisor']}
+            }
+        },
+        {'$sort': {group: 1}}])['result']
+    return send_response('resources', [data])
+
+
+@api.route('/' + api.config['URL_PREFIX'] + '/<facility_code>/product_sum/<group>/<field_a>/<field_b>')
+def resource_product_sum(facility_code, group, field_a, field_b):
+    """Get group sum of product of two fields."""
+    multiplicands = field_a.split(',')
+    multipliers = field_b.split(',')
+    query = dict(request.args.items())
+    query['facility_code'] = facility_code
+    data = app.data.driver.db['resources'].aggregate([
+        {
+            '$match': query
+        },
+        {
+            '$group': {
+                '_id': '$' + group,
+                'product_sum': {
+                    '$sum': {
+                        '$multiply': [
+                            {'$add': ['$' + f for f in multiplicands]},
+                            {'$add': ['$' + f for f in multipliers]}
+                        ]
+                    }
+                }
+            }
+        },
+        {'$sort': {group: 1}}])['result']
+    return send_response('resources', [data])
 
 
 def main():
