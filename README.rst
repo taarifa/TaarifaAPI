@@ -91,8 +91,13 @@ Start the API server from the ``TaarifaAPI`` directory by running: ::
 
   python taarifa_api/taarifa_api.py
 
-This should start the API server. To check things are working, open a
-browser and navigate to: ::
+This starts the API server using a local MongoDB database and requires MongoDB
+to be running locally. To use a remote database, export the environment
+variable ``MONGOLAB_URI`` with a connection URI of the form ::
+
+  mongodb://[username:password@]host[:port][/[database]]
+
+To check things are working, open a browser and navigate to: ::
 
   http://localhost:5000/api
 
