@@ -1,11 +1,11 @@
 from setuptools import setup
 
 setup(name='TaarifaAPI',
-      version='dev',
+      version='0.1.0',
       description='The Taarifa API for managing resources and requests',
       long_description=open('README.rst').read(),
-      author='The Taarifa Organisation',
-      author_email='taarifadev@gmail.com',
+      author='Florian Rathgeber',
+      author_email='florian.rathgeber@gmail.com',
       license='Apache License, Version 2.0',
       url='http://taarifa.org',
       download_url='https://github.com/taarifa/TaarifaAPI',
