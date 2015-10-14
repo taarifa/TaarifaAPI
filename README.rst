@@ -55,7 +55,8 @@ distribution.
 Installation
 ------------
 
-Ensure you have installed Python, pip and MongoDB and that MongoDB is running.
+Ensure you have installed Python 2.7, pip >= 1.5 and MongoDB 3.0 and that the
+MongoDB server `mongod` is running.
 
 Install virtualenv_ and virtualenvwrapper (you might need admin rights for
 this): ::
