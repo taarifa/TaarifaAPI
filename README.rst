@@ -94,7 +94,7 @@ Start the API server from the ``TaarifaAPI`` directory by running: ::
 
 This starts the API server using a local MongoDB database and requires MongoDB
 to be running locally. To use a remote database, export the environment
-variable ``MONGOLAB_URI`` with a connection URI of the form ::
+variable ``MONGOLAB_URI`` with a `connection URI`_ of the form ::
 
   mongodb://[username:password@]host[:port][/[database]]
 
@@ -125,3 +125,4 @@ contributions. Refer to the `contributing guidelines`_ for further details.
 .. _contributing guidelines: CONTRIBUTING.rst
 .. _virtualenv: http://docs.python-guide.org/en/latest/dev/virtualenvs/
 .. _Set up virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/install.html#shell-startup-file
+.. _connection URI: http://docs.mongodb.org/manual/reference/connection-string/
