@@ -16,6 +16,8 @@ API_NAME = 'TaarifaAPI'
 URL_PREFIX = environ.get('API_URL_PREFIX', 'api')
 if 'EVE_DEBUG' in environ:
     DEBUG = True
+    TRAP_HTTP_EXCEPTIONS = True
+    TRAP_BAD_REQUEST_KEY_ERRORS = True
 
 if 'MONGOLAB_URI' in environ:
     url = urlparse(environ['MONGOLAB_URI'])
