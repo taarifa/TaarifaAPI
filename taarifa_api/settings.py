@@ -40,6 +40,7 @@ ITEM_METHODS = ['GET', 'PUT', 'PATCH', 'DELETE']
 
 services = {
     "schema": service_schema,
+    "transparent_schema_rules": True,
 }
 
 requests = {
