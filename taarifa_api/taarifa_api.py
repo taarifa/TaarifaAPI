@@ -4,6 +4,7 @@ from eve import Eve
 from eve.io.mongo import Validator
 from eve.methods.delete import delete, deleteitem
 from eve.methods.post import post
+from eve.methods.put import put
 
 from flask import current_app as app
 from flask.ext.bootstrap import Bootstrap
@@ -74,6 +75,12 @@ def add_document(resource, document):
     "Add a new document to the given resource."
     with api.test_request_context(resource_url(resource)):
         return post(resource, payl=document)
+
+
+def update_document(resource, document):
+    "Update an existing document at the given resource."
+    with api.test_request_context(resource_url(resource)):
+        return put(resource, payl=document)
 
 
 def delete_document(resource, document):
