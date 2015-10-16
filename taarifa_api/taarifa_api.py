@@ -32,7 +32,7 @@ class KeySchemaValidator(Validator):
             dynamic_schema = res[schema['schema']]
             if 'transform' in schema:
                 dynamic_schema = schema['transform'](dynamic_schema)
-            self._validate_schema(dynamic_schema, field, dct)
+            self._validate_schema(dynamic_schema, field, dct, None)
         else:
             self._error(field, "Could not find any %s for query %s" %
                         (schema['resource'], query))
@@ -40,7 +40,7 @@ class KeySchemaValidator(Validator):
     def _validate_keyschema(self, schema, field, dct):
         "Validate all keys of dictionary `dct` against schema `schema`."
         for key, value in dct.items():
-            self._validate_schema(schema, key, value)
+            self._validate_schema(schema, key, value, None)
 
     def _validate_type_point(self, field, value):
         "Validate a GeoJSON Point."
@@ -49,7 +49,7 @@ class KeySchemaValidator(Validator):
                                   'minlength': 2,
                                   'maxlength': 2,
                                   'schema': {'type': 'float'}}}
-        self._validate_schema(schema, field, value)
+        self._validate_schema(schema, field, value, None)
         if not -180.0 <= value['coordinates'][0] <= 180.0:
             self._error(field, "Longitude must be in the range -180.0, 180.0")
         if not -90.0 <= value['coordinates'][1] <= 90.0:
