@@ -52,6 +52,7 @@ requests = {
 facilities = {
     "item_title": "facility",
     "schema": facility_schema,
+    "transparent_schema_rules": True,
 }
 
 resources = {
