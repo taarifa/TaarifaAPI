@@ -3,7 +3,7 @@ from os import environ, path
 from eve import Eve
 from eve.io.mongo import Validator
 from eve.methods.delete import delete, deleteitem
-from eve.methods.post import post
+from eve.methods.post import post_internal
 from eve.methods.put import put
 
 from flask import current_app as app
@@ -74,7 +74,7 @@ def get_schema(resource):
 def add_document(resource, document):
     "Add a new document to the given resource."
     with api.test_request_context(resource_url(resource)):
-        return post(resource, payl=document)
+        return post_internal(resource, payl=document, skip_validation=True)
 
 
 def update_document(resource, document):
