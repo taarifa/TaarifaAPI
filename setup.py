@@ -24,6 +24,6 @@ setup(name='TaarifaAPI',
                     ["taarifa_api = taarifa_api.taarifa_api:main"]},
       include_package_data=True,
       zip_safe=False,
-      install_requires=['Eve==0.6',
+      install_requires=['Eve==0.6.1',
                         'Eve-docs==0.1.4',
                         'Flask-Compress==1.3.0'])
