@@ -78,3 +78,6 @@ COMPRESS_DEBUG = True
 COMPRESS_LEVEL = 9
 # Enable document version control
 VERSIONING = True
+# For debugging
+# TRAP_HTTP_EXCEPTIONS = True
+# TRAP_BAD_REQUEST_KEY_ERRORS = True
