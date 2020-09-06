@@ -1,7 +1,7 @@
 """Global API configuration."""
 
 from os import environ
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 # This module is both imported from and executed. In the former case only
 # relative imports are supported, in the latter only absolute.
