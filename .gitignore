@@ -17,6 +17,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
+.venv
 
 # Installer logs
 pip-log.txt
@@ -36,3 +37,6 @@ nosetests.xml
 
 # Sphinx
 _build
+
+# Heroku
+.env
