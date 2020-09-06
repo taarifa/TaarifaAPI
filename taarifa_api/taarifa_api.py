@@ -9,7 +9,7 @@ from eve.methods.put import put
 from flask import current_app as app
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.compress import Compress
-from eve_docs import eve_docs
+from eve_swagger import get_swagger_blueprint
 
 from settings import API_NAME, requests, resources
 
@@ -61,7 +61,12 @@ api = Eve(API_NAME, validator=KeySchemaValidator, settings=settingsfile)
 
 Bootstrap(api)
 Compress(api)
-api.register_blueprint(eve_docs, url_prefix='/docs')
+
+api.register_blueprint(get_swagger_blueprint())
+api.config['SWAGGER_INFO'] = {
+    'title': 'Taarifa API',
+    'version': '0.1.0',
+}
 
 resource_url = lambda resource: '/' + api.config['URL_PREFIX'] + '/' + resource
 
