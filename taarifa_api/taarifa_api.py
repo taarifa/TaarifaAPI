@@ -7,7 +7,7 @@ from eve.methods.post import post_internal
 from eve.methods.put import put
 
 from flask import current_app as app
-from flask.ext.compress import Compress
+from flask_compress import Compress
 from eve_swagger import get_swagger_blueprint
 
 from settings import API_NAME, requests, resources
