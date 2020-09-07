@@ -7,7 +7,6 @@ from eve.methods.post import post_internal
 from eve.methods.put import put
 
 from flask import current_app as app
-from flask.ext.bootstrap import Bootstrap
 from flask.ext.compress import Compress
 from eve_swagger import get_swagger_blueprint
 
@@ -59,7 +58,6 @@ class KeySchemaValidator(Validator):
 settingsfile = path.join(path.abspath(path.dirname(__file__)), 'settings.py')
 api = Eve(API_NAME, validator=KeySchemaValidator, settings=settingsfile)
 
-Bootstrap(api)
 Compress(api)
 
 api.register_blueprint(get_swagger_blueprint())
