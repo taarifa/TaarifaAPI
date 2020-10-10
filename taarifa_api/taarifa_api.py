@@ -10,7 +10,7 @@ from flask import current_app as app
 from flask_compress import Compress
 from eve_swagger import get_swagger_blueprint
 
-from settings import API_NAME, requests, resources
+from .settings import API_NAME, requests, resources
 
 
 class KeySchemaValidator(Validator):
