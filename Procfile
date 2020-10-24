@@ -1,1 +1,1 @@
-web: python taarifa_api/taarifa_api.py
+web: gunicorn taarifa_api:api
