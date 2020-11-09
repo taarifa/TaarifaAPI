@@ -1,7 +1,6 @@
 """Global API configuration."""
 
 from os import environ
-from urllib.parse import urlparse
 
 # This module is both imported from and executed. In the former case only
 # relative imports are supported, in the latter only absolute.
@@ -19,13 +18,8 @@ if 'EVE_DEBUG' in environ:
     TRAP_HTTP_EXCEPTIONS = True
     TRAP_BAD_REQUEST_KEY_ERRORS = True
 
-if 'MONGOLAB_URI' in environ:
-    url = urlparse(environ['MONGOLAB_URI'])
-    MONGO_HOST = url.hostname
-    MONGO_PORT = url.port
-    MONGO_USERNAME = url.username
-    MONGO_PASSWORD = url.password
-    MONGO_DBNAME = url.path[1:]
+if 'MONGO_URI' in environ:
+    MONGO_URI = environ['MONGO_URI']
 else:
     MONGO_DBNAME = environ.get('MONGO_DBNAME', API_NAME)
 
