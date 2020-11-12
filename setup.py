@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='TaarifaAPI',
-      version='0.1.0',
+      version='0.2.0',
       description='The Taarifa API for managing resources and requests',
       long_description=open('README.rst').read(),
       author='Florian Rathgeber',

@@ -63,7 +63,7 @@ Compress(api)
 api.register_blueprint(get_swagger_blueprint())
 api.config['SWAGGER_INFO'] = {
     'title': 'Taarifa API',
-    'version': '0.1.0',
+    'version': '0.2.0',
 }
 
 resource_url = lambda resource: '/' + api.config['URL_PREFIX'] + '/' + resource
